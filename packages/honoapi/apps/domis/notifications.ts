@@ -1,17 +1,19 @@
-import { zValidator } from "@hono/zod-validator";
 import { setDomerToken } from "@fresku/mongo/tenants/users";
-import getSecret from "@fresku/utils/secret";
+import { getAlgorithm, getSecret } from "@fresku/utils/secret";
+import { zValidator } from "@hono/zod-validator";
 import { Expo } from "expo-server-sdk";
 import { Hono } from "hono";
 import { jwt } from "hono/jwt";
+import type { DomisVariables } from '../../types';
 import { z } from "zod/v4-mini";
 
-const notifications = new Hono()
+const notifications = new Hono<{ Variables: DomisVariables }>()
 
 notifications.put("/tokens",
     (c, next) => {
         const jwtMiddleware = jwt({
             secret: getSecret(),
+            alg: getAlgorithm()
         })
         return jwtMiddleware(c, next)
     },
@@ -30,7 +32,7 @@ notifications.put("/tokens",
         }
 
         const res = await setDomerToken(tenantId, domerId, token)
-        
+
         if (res.matchedCount === 0) return c.notFound()
         if (res.modifiedCount === 0) return c.text("Token already set", 200)
 

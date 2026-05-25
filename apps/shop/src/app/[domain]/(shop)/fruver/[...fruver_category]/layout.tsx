@@ -7,15 +7,16 @@ const CategoryLayout = async ({
   children,
 }: {
   params: Promise<{
-    fruver_category: FruverCategory[];
+    domain: string;
+    fruver_category: string[];
   }>;
   children: ReactNode;
 }) => {
   const { fruver_category } = await params;
-  const [category, subcategory] = fruver_category;
+  const [category, subcategory] = fruver_category as [FruverCategory, string?];
 
   const decodeSub =
-    subcategory && (decodeURIComponent(subcategory || "") as FruverSubcategory);
+    subcategory && (decodeURIComponent(subcategory) as FruverSubcategory);
 
   return (
     <div>

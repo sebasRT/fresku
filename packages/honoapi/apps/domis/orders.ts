@@ -1,15 +1,17 @@
-import { zValidator } from "@hono/zod-validator";
 import { orderSchema, rangeSchema } from "@fresku/model/order";
 import { getOrders, updateOrder } from "@fresku/mongo/tenants/orders";
-import getSecret from "@fresku/utils/secret";
+import { getAlgorithm, getSecret } from "@fresku/utils/secret";
+import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { jwt } from "hono/jwt";
+import type { DomisVariables } from '../../types';
 
-const orders = new Hono();
+const orders = new Hono<{ Variables: DomisVariables }>();
 
 orders.use("/*", (c, next) => {
     const jwtMiddleware = jwt({
         secret: getSecret(),
+        alg: getAlgorithm(),
     })
     return jwtMiddleware(c, next)
 })
@@ -31,7 +33,8 @@ orders.patch("/:id",
         if (!order.orderId) return c.text("Missing orderId", 400)
 
         const payload = c.get('jwtPayload')
-        const { domerId, tenantId } = payload
+        const { domer, tenantId } = payload
+        const domerId = domer.id
         const result = await updateOrder(tenantId, order, domerId)
 
         return c.json(result)

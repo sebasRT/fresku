@@ -1,13 +1,15 @@
 import { getDomer } from "@fresku/mongo/tenants/users";
-import getSecret from "@fresku/utils/secret";
+import { getAlgorithm, getSecret } from "@fresku/utils/secret";
 import { Hono } from "hono";
 import { jwt, sign } from "hono/jwt";
+import type { DomerAccessVariables, DomisJwtPayload } from '../../types';
 
-const auth = new Hono()
+const auth = new Hono<{ Variables: DomerAccessVariables }>()
 
 auth.get("/", (c, next) => {
     const jwtMiddleware = jwt({
         secret: getSecret(),
+        alg: getAlgorithm()
     })
     return jwtMiddleware(c, next)
 }, async (c) => {
@@ -21,7 +23,7 @@ auth.get("/", (c, next) => {
         return c.notFound()
     }
 
-    const payload = { tenantId, domer }
+    const payload: DomisJwtPayload = { tenantId, domer: domer as DomisJwtPayload['domer'] }
     const token = await sign(payload, getSecret())
 
     return c.text(token)

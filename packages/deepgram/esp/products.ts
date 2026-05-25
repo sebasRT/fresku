@@ -1,5 +1,5 @@
 import { createClient } from "@deepgram/sdk";
-import { BRANDS } from "../../utils/src/products/barcode/consts.ts";
+import { BRANDS } from "../../utils/src/products/barcode/consts";
 const deepgramKey = process.env.DEEPGRAM_API_KEY;
 
 if (!deepgramKey) {

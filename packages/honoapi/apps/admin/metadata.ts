@@ -1,16 +1,18 @@
-import { zValidator } from '@hono/zod-validator';
 import { tenantHoursSchema, tenantSchema } from '@fresku/model/tenants/metadata';
 import { getTenantMetadata, setTenantHours, updateTenantMetadata } from '@fresku/redis/tenants';
-import getSecret from '@fresku/utils/secret';
+import { getAlgorithm, getSecret } from '@fresku/utils/secret';
+import { zValidator } from '@hono/zod-validator';
 import { Hono } from "hono";
 import { jwt } from 'hono/jwt';
+import type { AdminVariables } from '../../types';
 import z from 'zod';
 
-const metadata = new Hono()
+const metadata = new Hono<{ Variables: AdminVariables }>()
 
 metadata.use("/*", (c, next) => {
     const jwtMiddleware = jwt({
         secret: getSecret(),
+        alg: getAlgorithm(),
     })
     return jwtMiddleware(c, next)
 })
@@ -21,7 +23,7 @@ const tenantMetaKeysSchema = z.array(z.enum(allowedKeys));
 
 metadata
     .get('/*', async (c) => {
-        const domain = c.get('jwtPayload').domain;
+        const { domain } = c.get('jwtPayload');
 
         const wildcard = c.req.path.split('/metadata/')[1] ?? '';
         const paramsRaw = wildcard.split('/').filter(Boolean);

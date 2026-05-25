@@ -1,5 +1,5 @@
 import { RedisUser } from "@fresku/model/users/index";
-import getSecret from "@fresku/utils/secret";
+import { getSecret } from "@fresku/utils/secret";
 import { getNowInUTC } from "@fresku/utils/time/index";
 import { sign } from 'hono/jwt';
 import Redis from "ioredis";
@@ -28,3 +28,4 @@ async function setNewUserSession(email: string) {
 }
 
 export { setNewUserSession };
+

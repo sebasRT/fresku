@@ -1,15 +1,17 @@
-import { zValidator } from '@hono/zod-validator';
 import { fruverSchema } from '@fresku/model/products/fruver';
 import { addTenantFruverProduct, queryTenantFruverProducts, tenantFruverQuerySearch, updateTenantFruverProduct } from "@fresku/mongo/tenants/products/fruver";
-import getSecret from "@fresku/utils/secret";
+import { getAlgorithm, getSecret } from "@fresku/utils/secret";
+import { zValidator } from '@hono/zod-validator';
 import { Hono } from "hono";
 import { jwt } from "hono/jwt";
+import type { AdminVariables } from '../../../types';
 
-const fruverProducts = new Hono();
+const fruverProducts = new Hono<{ Variables: AdminVariables }>();
 
 fruverProducts.use("/*", (c, next) => {
     const jwtMiddleware = jwt({
         secret: getSecret(),
+        alg: getAlgorithm()
     })
     return jwtMiddleware(c, next)
 })

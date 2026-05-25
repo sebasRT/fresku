@@ -1,20 +1,22 @@
-import { zValidator } from '@hono/zod-validator';
 import { getProductBody } from '@fresku/ai/products/barcode';
 import { getProductsQuery } from '@fresku/deepgram/esp/products';
 import { barcodeSchema } from '@fresku/model/products/barcode';
 import { getByBarcode } from '@fresku/mongo/products/barcode';
 import { addProductFromTenant } from '@fresku/mongo/products/new/barcode';
 import { addBarcodeProduct, queryTenantBarcodeProducts, tenantBarcodeQuerySearch, tenantGetByBarcode, updateBarcodeProduct, upsertBarcodeProduct } from "@fresku/mongo/tenants/products/barcode";
-import getSecret from "@fresku/utils/secret";
+import { getAlgorithm, getSecret } from "@fresku/utils/secret";
+import { zValidator } from '@hono/zod-validator';
 import { Hono } from "hono";
 import { jwt } from "hono/jwt";
 import { z } from "zod";
+import type { AdminVariables } from '../../../types';
 
-const barcodeProducts = new Hono();
+const barcodeProducts = new Hono<{ Variables: AdminVariables }>();
 
 barcodeProducts.use("/*", (c, next) => {
     const jwtMiddleware = jwt({
         secret: getSecret(),
+        alg: getAlgorithm()
     })
     return jwtMiddleware(c, next)
 })
@@ -119,7 +121,7 @@ barcodeProducts.basePath("/voice")
                 const body = await getProductBody(voiceDecoded, { price: z.number().describe("Precio de producto en numero entero") });
                 return c.json(body);
 
-            } catch (error: any) { 
+            } catch (error: any) {
 
                 return c.text(`Failed to get product body: ${error.message}`, 500);
             }

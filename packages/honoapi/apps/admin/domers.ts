@@ -1,12 +1,12 @@
-import { zValidator } from '@hono/zod-validator';
 import { domerSchema } from "@fresku/model/tenants/users";
 import { addDomer, deleteDomer, getDomer, getTenantDomers, updateDomer } from "@fresku/mongo/tenants/users";
-import getSecret from "@fresku/utils/secret";
+import { getAlgorithm, getSecret } from "@fresku/utils/secret";
+import { zValidator } from '@hono/zod-validator';
 import { Hono } from "hono";
-import type { JwtVariables } from 'hono/jwt';
 import { jwt, sign } from 'hono/jwt';
+import type { AdminVariables, DomerAccessPayload } from '../../types';
 
-type Variables = JwtVariables
+type Variables = AdminVariables
 
 const domers = new Hono<{ Variables: Variables }>()
 
@@ -16,6 +16,7 @@ if (secret === undefined) throw new Error("Add secret")
 domers.use("/*", (c, next) => {
     const jwtMiddleware = jwt({
         secret: getSecret(),
+        alg: getAlgorithm(),
     })
     return jwtMiddleware(c, next)
 })
@@ -47,7 +48,7 @@ domers.basePath("/:id")
 
         if (!domer) { return c.text("Domer not found", 404) }
 
-        const payload = { domerId, tenantId, domain }
+        const payload: DomerAccessPayload = { domerId, tenantId, domain }
         const token = await sign(payload, secret)
 
         return c.text(token)

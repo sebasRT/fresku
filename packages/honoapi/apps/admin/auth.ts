@@ -1,10 +1,11 @@
-import { zValidator } from '@hono/zod-validator'
 import { findTenantByAdminEmail } from '@fresku/mongo/tenants/users'
 import { sendAdminOTP, verifyAdminOTP } from '@fresku/resend/admin'
-import getSecret from '@fresku/utils/secret'
+import { getSecret } from '@fresku/utils/secret'
+import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { sign } from 'hono/jwt'
 import z from 'zod'
+import type { AdminJwtPayload } from '../../types'
 
 const auth = new Hono()
 
@@ -38,10 +39,10 @@ auth.post('/',
             return c.text("Invalid OTP", 401)
         }
 
-        const payload = {
+        const payload: AdminJwtPayload = {
             tenantId: tenant.tenantId,
             domain: tenant.domain,
-            adminInfo: tenant.admin
+            adminInfo: tenant.admin as Record<string, unknown>
         }
 
         const token = await sign(payload, getSecret())
