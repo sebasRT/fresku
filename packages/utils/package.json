@@ -1,0 +1,17 @@
+{
+    "name": "@fresku/utils",
+    "private": true,
+    "version": "0.0.0",
+    "description": "Shared utility functions for Fresku",
+    "exports": {
+        "./*": "./src/*.ts"
+    },
+    "dependencies": {
+        "@fresku/model": "*",
+        "openai": "^4.0.0"
+    },
+    "peerDependencies": {
+        "luxon": "3.6.1",
+        "@ai-sdk/openai": "^1.3.23"
+    }
+}

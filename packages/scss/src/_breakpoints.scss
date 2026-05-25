@@ -1,0 +1,43 @@
+@use "sass:map";
+
+$breakpoints: (
+    'xxs': 0,
+    'xs': 480px,
+    'sm': 576px,
+    'md': 768px,
+    'lg': 992px,
+    'xl': 1200px,
+    'xxl': 1400px
+);
+
+@mixin respond-to($breakpoint) {
+    $size: map.get($breakpoints, $breakpoint);
+
+    @if $size !=null {
+        @media (min-width: $size) {
+            @content;
+        }
+    }
+
+    @else {
+        @error "Breakpoint '#{$breakpoint}' is not defined in $breakpoints map.";
+    }
+}
+
+@mixin min-width($breakpoint) {
+    $size: map.get($breakpoints, $breakpoint);
+
+    @if $size != null {
+        @media (min-width: $size) {
+            width: $size;
+        }
+    } @else {
+        @error "Breakpoint '#{$breakpoint}' is not defined in $breakpoints map.";
+    }
+}
+// Example usage:
+// .example {
+//   @include respond-to('md') {
+//     color: red;
+//   }
+// }

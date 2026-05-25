@@ -1,0 +1,48 @@
+@use "sass:map";
+@use "@fresku/scss" as *;
+
+.resume {
+  @include flex-column-center;
+  color: map.get($neutral, 800);
+  gap: 1rem;
+  margin: 1rem;
+  .sum {
+    @include flex-row;
+    gap: 1rem;
+  }
+  .total {
+    @include flex-column-center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3lh;
+    strong {
+      font-size: 2rem;
+      color: map.get($blue, 500);
+    }
+  }
+  .note {
+    font-size: 0.9rem;
+    color: map.get($neutral, 600);
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .confirmButton {
+    @include press-behavior;
+    color: white;
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
+    margin: 1rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    background-color: map.get($green, 600);
+    border-radius: 99px;
+    letter-spacing: 0.05rem;
+    width: fit-content;
+    align-self: center;
+    &:disabled {
+      background-color: map.get($gray, 500);
+      cursor: not-allowed;
+    }
+  }
+}

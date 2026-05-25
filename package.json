@@ -1,0 +1,36 @@
+{
+  "name": "fresku",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "check-types": "turbo run check-types"
+  },
+  "devDependencies": {
+    "@types/luxon": "^3.7.1",
+    "@types/node": "^25.9.1",
+    "prettier": "^3.8.3",
+    "sass": "^1.100.0",
+    "ts-node": "^10.9.2",
+    "turbo": "^2.9.14",
+    "typescript": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "npm@11.15.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "dependencies": {
+    "@hookform/resolvers": "^5.4.0",
+    "expo-server-sdk": "^6.1.0",
+    "hono": "^4.12.23",
+    "next": "16.3.0-canary.28",
+    "react": "19.2",
+    "react-hook-form": "^7.76.1"
+  }
+}

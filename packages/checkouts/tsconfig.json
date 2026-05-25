@@ -1,0 +1,16 @@
+{
+  "extends": "@repo/typescript-config/react-library.json",
+  "compilerOptions": {
+    "rootDir": "."
+  },
+  "include": [
+    "./**/*.tsx",
+    "styles.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "_scripts",
+    "_templates"
+  ]
+}

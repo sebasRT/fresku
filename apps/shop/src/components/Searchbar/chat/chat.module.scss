@@ -1,0 +1,20 @@
+@use "@fresku/scss" as *;
+
+.container {
+  @include box-shadow;
+  z-index: 20;
+  border-radius: 0.25rem;
+  max-height: 80svh;
+  overflow-y: scroll;
+  position: absolute;
+  top: calc(100% + 1rem);
+  width: 100%;
+  padding: 1rem;
+  scroll-behavior: smooth;
+  background-color: white;
+  transition: height 0.3s ease-in-out;
+}
+
+.messageContainer {
+  max-width: 100%;
+}

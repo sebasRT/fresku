@@ -1,0 +1,68 @@
+@use "sass:map";
+@use "@fresku/scss" as *;
+
+.container {
+  @include flex-row;
+  @include press-behavior(0.98);
+  @include box-shadow;
+  position: relative;
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 2rem;
+  flex-grow: 1;
+
+  input {
+    outline: none;
+    padding-inline: 0.5rem;
+    appearance: none;
+    flex-grow: 1;
+    height: auto;
+  }
+
+  textarea {
+    line-height: 1em;
+    flex-grow: 1;
+    padding-top: 0.5rem;
+    padding-left: 0.3rem;
+    bottom: 0;
+    vertical-align: top;
+    max-width: 100%;
+    outline: none;
+    appearance: none;
+    resize: none;
+    field-sizing: content;
+  }
+
+  button {
+    color: map.get($neutral, 800);
+    font-size: 2rem;
+  }
+}
+
+.agentInput:before {
+  content: "";
+  @include press-behavior;
+  z-index: -10;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(-45deg, #03e5b7 0%, #037ade 100%);
+  filter: blur(10px);
+  opacity: 0.7;
+  transition: opacity 0.5s;
+  border-radius: inherit;
+  @include opacity-fade-in(0.2s);
+}
+.agentInput::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: inherit;
+  border-radius: inherit;
+}

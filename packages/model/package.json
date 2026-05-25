@@ -1,0 +1,10 @@
+{
+    "name": "@fresku/model",
+    "private": true,
+    "version": "1.0.0",
+    "description": "Shared Zod schemas and TypeScript types for Fresku",
+    "outDir": "dist",
+    "exports": {
+        "./*": "./src/*.ts"
+    }
+}

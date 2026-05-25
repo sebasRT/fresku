@@ -1,0 +1,13 @@
+@use "sass:map";
+@use "@fresku/scss" as *;
+
+.fruverMainPage {
+  > h2 {
+    padding-inline: 1rem;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: map.get($green, 700);
+  }
+}
+

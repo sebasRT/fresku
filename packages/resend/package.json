@@ -1,0 +1,15 @@
+{
+    "name": "@fresku/resend",
+    "main": "src/index.ts",
+    "exports": {
+        "./*": "./src/*.ts"
+    },
+    "dependencies": {
+        "@repo/typescript-config": "*"
+    },
+    "peerDependencies": {
+        "@fresku/model": "*",
+        "@fresku/utils": "*",
+        "resend": "^4.6.0"
+    }
+}

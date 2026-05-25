@@ -1,0 +1,15 @@
+@use "@fresku/scss" as *;
+.goToMain {
+  @include flex-row-center;
+  z-index: 20;
+  gap: 1rem;
+  position: fixed;
+  left: 2rem;
+  bottom: 1rem;
+  background-color: white;
+  font-size: 1.5rem;
+  padding-inline: 1rem;
+  border-radius: 99px;
+  @include box-shadow;
+  @include press-behavior;
+}

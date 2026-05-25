@@ -1,0 +1,60 @@
+@use "sass:map";
+@use "@fresku/scss" as *;
+
+.form {
+  margin-inline: auto;
+  padding-inline: 1rem;
+  margin-block: 2rem;
+  max-width: 30rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input {
+  @include flex-column;
+
+  > * {
+    margin-bottom: 0.25rem;
+    padding-inline: 0.5rem;
+  }
+
+  span {
+    font-weight: 600;
+    color: map.get($neutral, 600);
+  }
+  input {
+    outline: none;
+    padding-block: 0.2rem;
+    letter-spacing: 0.05rem;
+    font-size: 1.5rem;
+    background-color: map.get($neutral, 100);
+    border-color: map.get($blue, 300);
+    border-bottom-width: 0.25rem;
+  }
+  small {
+    color: darkred;
+    font-size: 0.9rem;
+  }
+
+  &.invalid {
+    input {
+      border-color: red;
+    }
+  }
+  &.valid {
+    input {
+      border-color: map.get($green, 500);
+    }
+  }
+}
+
+.nextButton {
+  border: 2px solid map.get($blue, 500);
+  @include press-behavior;
+  border-radius: 99px;
+  letter-spacing: 0.05rem;
+  padding: 0.5rem;
+  width: fit-content;
+  align-self: flex-end;
+}

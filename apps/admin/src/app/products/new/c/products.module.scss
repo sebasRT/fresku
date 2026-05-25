@@ -1,0 +1,84 @@
+@use "sass:map";
+@use "@fresku/scss" as *;
+
+.productCard {
+  @include box-shadow;
+  padding: 1em;
+  border-width: 0.15rem;
+  outline: none;
+  border-radius: 1rem;
+  margin: 0.5rem;
+  border-color: map.get($neutral, 500);
+
+  h2 {
+    font-weight: 600;
+    color: map.get($neutral, 700);
+  }
+  p {
+    display: flex;
+    gap: 2em;
+    font-size: 0.8em;
+    font-weight: 500;
+    color: map.get($gray, 400);
+  }
+
+  &.active {
+    border-color: map.get($blue, 500);
+    color: white;
+  }
+
+  &.done {
+    border-color: map.get($green, 500);
+  }
+
+  &.toReview {
+    border-color: map.get($stockStatus, "low");
+  }
+
+  @include press-behavior(0.99);
+  @include respond-to("md") {
+    font-size: 1.5rem;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  .copyInfo {
+    @include flex-column;
+    justify-content: space-between;
+    text-align: right;
+    gap: 1rem;
+    @include respond-to("md") {
+      font-size: 1.3em;
+      flex-direction: row-reverse;
+    }
+    .texts {
+      @include flex-column;
+      align-items: end;
+      gap: 1rem;
+    }
+  }
+  .selects {
+    @include flex-column;
+    gap: 1em;
+    margin-top: 1rem;
+    @include respond-to("md") {
+      font-size: 1.2em;
+      flex-direction: row;
+    }
+  }
+  .button {
+    padding: 0.5rem;
+    align-self: center;
+    background-color: map.get($neutral, 200);
+    &.valid {
+      background-color: map.get($green, 500);
+    }
+  }
+}
+
+.dialog {
+  margin: auto;
+}

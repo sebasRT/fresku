@@ -1,0 +1,14 @@
+{
+    "name": "@fresku/stores",
+    "private": true,
+    "exports": {
+        "./*": "./src/*.ts"
+    },
+    "dependencies": {
+        "@fresku/utils": "*"
+    },
+    "scripts": {
+        "lint": "eslint src --ext .ts",
+        "typecheck": "tsc --noEmit"
+    }
+}

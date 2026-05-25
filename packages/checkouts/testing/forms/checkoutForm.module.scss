@@ -1,0 +1,210 @@
+@use "../../../scss/src/mixins" as *;
+@use "../../../scss/src/colors" as *;
+
+.form {
+    @include size-full;
+    @include flex-column-center;
+    text-align: center;
+    justify-content: space-evenly;
+    padding-inline: 1.25rem;
+    padding-bottom: 50px;
+    margin-top: 1.5rem;
+
+    .h1 {
+        text-align: center;
+        font-weight: 600;
+        font-size: 1.25rem;
+        color: map-get($gray, 600);
+    }
+
+}
+
+.formContainer {
+    @include flex-column-center;
+    flex-grow: 1;
+    scroll-behavior: smooth;
+    width: 100%;
+    justify-content: center;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+    gap: 12px;
+    max-width: 38rem;
+    margin-top: 1.5rem;
+
+
+    .inputContainer {
+        @include column-center;
+        @include size-full;
+        position: relative;
+        scroll-snap-align: center;
+
+
+
+        .input {
+            height: 38px;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: 500;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem;
+            border: none;
+            outline: none;
+            border-bottom-style: solid;
+            border-bottom-width: 2px;
+            border-bottom-color: map-get($blue, 501);
+            animation: fadeIn 0.2s ease-in forwards;
+        }
+
+        .input:focus-visible {
+            border-bottom-width: 4px;
+        }
+
+        .inputValid {
+            @include flex-column;
+            position: relative;
+            width: 100%;
+            border-bottom-color: map-get($blue, 501);
+            background-color: map-get($blue, 50);
+        }
+
+        .inputInvalid {
+            background-color: map-get($red, 100);
+            ;
+            border-bottom-color: map-get($red, 500);
+
+        }
+
+        .location {
+            display: flex;
+            width: 100%;
+            gap: 0.75rem;
+        }
+    }
+
+    .validation {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 0.2rem;
+        font-weight: 500;
+    }
+
+
+
+
+    .label {
+        @include flex-column;
+        position: relative;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+        width: 100%;
+    }
+
+    .inputLabel {
+        color: map-get($gray, 400);
+        font-weight: 510;
+    }
+
+    .inputLabelEmpty {
+        bottom: 0%;
+        font-size: 0.9rem;
+        color: map-get($red, 500);
+    }
+
+    .unitSelectorLabel select {
+        height: 36px;
+        width: 100%;
+        font-size: 1rem;
+        font-weight: 500;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        padding-top: 0.45rem;
+        padding-bottom: 0.25rem;
+        border: none;
+        outline: none;
+        border-bottom: 2px solid map-get($blue, 501);
+
+    }
+
+    .unit {
+        font-weight: 500;
+        color: map-get($gray, 400);
+        font-size: 1.125rem;
+        padding-bottom: 1rem;
+    }
+
+    .unitEmpty {
+        bottom: 0%;
+        font-size: 0.75rem;
+        color: map-get($red, 500);
+    }
+
+}
+
+.orderSummary {
+    margin-top: 1.25rem;
+    display: grid;
+    scroll-snap-align: center;
+    place-items: center;
+
+
+    .subtotal {
+        display: flex;
+        gap: 0.75rem;
+        font-size: 1.125rem;
+        line-height: 1.25rem;
+    }
+
+    .total {
+        text-align: center;
+        font-size: 1.5rem;
+        line-height: 1rem;
+    }
+
+    .totalLabel {
+        font-size: 1.5rem;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+    }
+}
+
+.buttonRounded {
+    border-radius: 9999px;
+    background-color: map-get($neutral, 0);
+    padding: 0.5rem 1.25rem;
+    font-size: 1.125rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.buttonSubmit {
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    border-radius: 12px;
+    background-color: map-get($blue, 501);
+    padding: 0.6rem 1.25rem;
+    font-size: 1.25rem;
+    color: map-get($neutral, 0);
+    cursor: pointer;
+    border: none
+}
+
+.buttonSubmit:disabled {
+    background-color: map-get($gray, 300);
+    cursor: not-allowed;
+}
+
+.linkPolicy {
+
+    color: map-get($blue, 501);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.privacy {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}

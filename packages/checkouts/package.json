@@ -1,0 +1,32 @@
+{
+    "name": "@fresku/checkouts",
+    "private": true,
+    "main": "./src/index.ts",
+    "exports": {
+        ".": "./src/index.ts"
+    },
+    "imports": {
+        "#actions*": "./_actions*"
+    },
+    "peerDependencies": {
+        "@fresku/model": "*",
+        "@fresku/stores": "*",
+        "@fresku/utils": "*",
+        "next": "*",
+        "sass": "*",
+        "zod": "*",
+        "react-hook-form": "*",
+        "zustand": "*",
+        "clsx": "*",
+        "mongodb": "*"
+    },
+    "scripts": {
+        "generate:map": "node ./_scripts/generate_checkouts_map.js",
+        "new:checkout": "node ./_scripts/new_checkout.js",
+        "lint": "eslint . --max-warnings 0",
+        "check-types": "tsc --noEmit"
+    },
+    "dependencies": {
+        "@hookform/resolvers": "^5.0.1"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "name": "@fresku/deepgram",
+    "main": "index.ts",
+    "exports": {
+        "./*": "./*.ts"
+    },
+    "dependencies": {
+        "@deepgram/sdk": "^4.5.1"
+    },
+    "peerDependencies": {},
+    "devDependencies": {}
+}

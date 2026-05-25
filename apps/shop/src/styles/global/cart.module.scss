@@ -1,0 +1,184 @@
+@use "sass:map";
+@use "@fresku/scss" as *;
+
+#cart {
+  z-index: 10;
+  aspect-ratio: 1/1;
+  color: white;
+  background-color: map.get($blue, 500);
+  font-size: xx-large;
+  border-radius: 99px;
+  padding: 1rem;
+  @include press-behavior();
+  @include flex-row-center;
+  @include box-shadow;
+  &.pop {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+  }
+  &.nav {
+    display: none;
+    position: relative;
+  }
+
+  div {
+    span {
+      box-sizing: content-box;
+      font-family: $font-mono;
+      font-weight: bold;
+      font-size: 1.5rem;
+      position: absolute;
+      top: -0.5rem;
+      right: -0.5rem;
+      border: 3px solid white;
+      background-color: map.get($green, 600);
+      color: white;
+      border-radius: 99px;
+      aspect-ratio: 1/1;
+      width: 2.4rem;
+      padding: auto;
+    }
+    @include respond-to("md") {
+      span {
+        top: 0;
+        right: -0.75rem;
+      }
+    }
+  }
+
+  @include respond-to("md") {
+    // &.pop {
+    //   display: none;
+    // }
+    &.nav {
+      display: flex;
+    }
+  }
+}
+
+.cartResume {
+  @include flex-column;
+
+  position: fixed;
+  background-color: white;
+  bottom: 0;
+  right: 0;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+  transform: translate(0, 100%);
+  z-index: 50;
+  width: 100%;
+  max-height: 100vh;
+
+  &.open {
+    transform: translate(0, 0);
+  }
+
+  @include respond-to("lg") {
+    max-width: 30rem;
+    top: 0;
+    transform: translate(100%, 0);
+  }
+  > nav {
+    @include flex-row-center;
+    color: map.get($neutral, 900);
+    justify-content: space-between;
+    font-size: 1.5rem;
+    padding-block: 0.25rem;
+    padding-inline: 1rem;
+    font-weight: 600;
+  }
+  > figure {
+    display: flex;
+    height: 100%;
+    place-items: center;
+    background-color: map.get($neutral, 50);
+    padding-top: 2rem;
+  }
+  > ul {
+    @include flex-column;
+    flex-grow: 1;
+    overflow-y: auto;
+    border: 1px solid map.get($neutral, 200);
+    > li {
+      @include flex-row-center;
+      border: 1px solid map.get($neutral, 200);
+      position: relative;
+      padding-block: 0.25rem;
+      > figure {
+        width: 3.5rem !important;
+        min-width: 3.5rem !important;
+      }
+      .productDetails {
+        flex-grow: 1;
+        padding-inline: 1rem;
+        h3 {
+          @include line-clamp(1);
+          font-size: 1.25rem;
+        }
+        > div {
+          @include flex-row;
+          justify-content: space-between;
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: map.get($green, 600);
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: map.get($green, 600);
+          > :first-child {
+            font-size: 0.9em;
+            font-weight: 300;
+            color: map.get($neutral, 900);
+          }
+          > :nth-child(2) {
+            color: map.get($blue, 600);
+            font-family: $font-mono;
+          }
+          > :nth-child(2) {
+            font-family: $font-mono;
+          }
+        }
+      }
+    }
+  }
+  > section {
+    @include flex-row;
+    justify-content: space-between;
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: map.get($neutral, 600);
+    > p {
+      @include flex-column;
+      font-size: 1rem;
+      > b {
+        font-size: 1.5rem;
+        color: map.get($blue, 700);
+      }
+    }
+    > .goToCheckout {
+      border-radius: 0.25rem;
+      font-size: 1.25em;
+      align-self: flex-end;
+      color: white;
+      background-color: map.get($blue, 600);
+      padding-inline: 1.25rem;
+    }
+  }
+}
+
+.layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-color: map.get($neutral, 900);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 40;
+  &.open {
+    opacity: 0.5;
+    pointer-events: all;
+  }
+}

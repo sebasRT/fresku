@@ -1,0 +1,17 @@
+@use "sass:map";
+@use "@fresku/scss" as *;
+
+.productsList {
+    padding: 1rem;
+    margin-bottom: 5rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    gap: 1.5rem;
+    position: relative;
+
+    @include respond-to("md") {
+        padding-inline: 2rem;
+        grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    }
+}

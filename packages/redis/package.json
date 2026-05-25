@@ -1,0 +1,17 @@
+{
+    "name": "@fresku/redis",
+    "main": "src/index.ts",
+    "exports": {
+        "./*": "./src/*.ts"
+    },
+    "private": true,
+    "dependencies": {
+        "@fresku/utils": "*",
+        "@fresku/model": "*",
+        "@repo/typescript-config": "*"
+    },
+    "peerDependencies": {
+        "ioredis": "*",
+        "@upstash/redis": "*"
+    }
+}

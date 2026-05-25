@@ -1,0 +1,17 @@
+{
+    "name": "@fresku/scss",
+    "version": "1.0.0",
+    "description": "SCSS shared abstractions for Fresku projects",
+    "main": "index.scss",
+    "files": [
+        "src"
+    ],
+    "keywords": [
+        "scss",
+        "sass",
+        "shared",
+        "fresku"
+    ],
+    "author": "SebasRT",
+    "private": true
+}

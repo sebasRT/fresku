@@ -1,0 +1,90 @@
+@use "@fresku/scss" as *;
+@use "sass:map";
+
+.container {
+  @include box-shadow;
+  position: fixed;
+  background: white;
+  display: flex;
+  font-size: 4rem;
+  bottom: 1rem;
+  left: 1rem;
+  border-width: 0.1rem;
+  min-width: 4rem;
+  min-height: 4rem;
+  border-radius: 50%;
+  transition: 0.3s ease-in-out;
+  transition-property: width, height, border-color, border-radius;
+
+  .button {
+    font-size: 4rem;
+    transition: 0.3s ease-in-out;
+    transition-property: opacity;
+    opacity: 1;
+    inset: 0;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .count {
+      box-sizing: content-box;
+      font-family: $font-mono;
+      font-weight: bold;
+      font-size: 1.4rem;
+      position: absolute;
+      top: 0rem;
+      right: -0.8rem;
+      background-color: map.get($blue, 700);
+      color: white;
+      border-radius: 99px;
+      aspect-ratio: 1/1;
+      width: 2rem;
+      padding: auto;
+    }
+
+    &.listShown {
+      width: 0;
+      display: fixed;
+      opacity: 0;
+    }
+  }
+
+  &.listShown {
+    border-radius: 0.75rem;
+    height: auto;
+    background: #fff;
+    border-color: map.get($green, 500);
+    border-width: 0.01rem;
+    aspect-ratio: unset;
+  }
+
+  &.hidden {
+    display: none;
+  }
+}
+
+
+.ordersList {
+  align-self: center;
+  font-size: 0rem;
+  transition: opacity, font-size 0.3s ease-in-out;
+
+  &.listShown {
+    opacity: 1;
+    width: auto;
+    font-size: 1rem;
+  }
+}
+
+.orderLi {
+  padding: 1em;
+
+  .details {
+    font-size: 0.8em;
+    flex: 1;
+    display: flex;
+    gap: 2em;
+    justify-items: space-between;
+  }
+}

@@ -1,0 +1,92 @@
+@use "sass:map";
+@use "@fresku/scss" as *;
+
+.order {
+  margin: auto;
+  max-width: 40rem;
+  div {
+    display: flex;
+    gap: 2em;
+    padding-inline: 1.5em;
+    justify-content: space-between;
+    section {
+      margin-block: 2em;
+
+      span {
+        display: block;
+        font-weight: 600;
+        font-size: 0.75em;
+        color: map.get($neutral, 600);
+      }
+      h1 {
+        font-weight: 600;
+        font-size: 1.5em;
+      }
+    }
+    section:nth-child(2) {
+      text-align: right;
+      text-transform: capitalize;
+      b {
+        display: block;
+        margin-top: 0.25em;
+      }
+      p {
+        font-family: monospace;
+      }
+    }
+  }
+
+  table {
+    margin-block: 2em;
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+
+    tbody {
+      border-collapse: collapse;
+      width: 100%;
+
+      th {
+        text-align: center;
+      }
+      td {
+        padding: 0.5em;
+      }
+      tr:nth-child(odd) {
+        background-color: map.get($neutral, 100) !important;
+      }
+      tr:nth-child(even) {
+        background-color: map.get($neutral, 50);
+      }
+      .price {
+        text-align: right;
+        font-weight: 600;
+      }
+      .name {
+        @include line-clamp(2);
+        font-size: 0.9em;
+        font-weight: 500;
+      }
+      .quantity {
+        font-family: monospace;
+        text-align: center;
+      }
+      .unitPrice {
+        text-align: center;
+        font-size: 0.9em;
+        font-weight: 500;
+      }
+    }
+    tfoot {
+      font-size: 1.25em;
+      text-align: end;
+      td {
+        padding: 0.5em;
+        font-weight: 600;
+      }
+    }
+  }
+  @include respond-to("sm") {
+    font-size: 1.25rem;
+  }
+}

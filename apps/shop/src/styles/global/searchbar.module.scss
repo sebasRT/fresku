@@ -1,0 +1,104 @@
+@use "sass:map";
+@use "@fresku/scss" as *;
+
+#searchBar {
+  @include flex-row-center;
+  flex-grow: 1;
+  gap: 0.5rem;
+  padding: 0.25rem;
+  font-size: x-large;
+  padding: 0.5rem;
+  padding-left: 1rem;
+  border-radius: 99px;
+  border-width: 2px;
+  border-color: map.get($neutral, 200);
+  background-color: white;
+
+  input {
+    @include size-full;
+    outline: none;
+  }
+
+  #searchIcon {
+    font-size: xx-large;
+  }
+
+  > ul {
+    font-size: large;
+    position: absolute;
+    z-index: 30;
+    top: 4rem;
+    left: 0;
+    width: 100%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 24rem;
+    overflow-y: scroll;
+    > li {
+      position: relative;
+      @include flex-row-center;
+      gap: 0.75rem;
+      max-width: 100%;
+      width: 100%;
+      > figure {
+        width: 5rem !important;
+        min-width: 5rem !important;
+      }
+      > .productDetails {
+        @include flex-column;
+        flex-grow: 1;
+        > p {
+          font-size: 0.8rem;
+        }
+        > h3 {
+          @include line-clamp(1);
+          font-size: 1.25rem;
+        }
+        > div {
+          @include flex-row-center;
+          justify-content: space-between;
+          gap: 3rem;
+          // align-self: flex-end;
+          > .price {
+            font-weight: 600;
+            color: map.get($blue, 700);
+          }
+        }
+      }
+      .count {
+        font-family: $font-mono;
+        color: map.get($green, 600);
+        font-size: 1.5rem;
+        font-weight: 500;
+      }
+      > .addButton {
+        @include press-behavior;
+        z-index: 10;
+        padding: 0.25rem;
+        font-size: 2rem;
+        color: map.get($blue, 600);
+        &:disabled {
+          color: map.get($neutral, 200);
+        }
+      }
+      @include odd {
+        background-color: white;
+      }
+      @include even {
+        background-color: map.get($neutral, 50);
+      }
+      &.moreResults {
+        justify-content: center;
+        span {
+          color: map.get($blue, 500);
+          padding-block: 0.75rem;
+        }
+      }
+    }
+  }
+  @include respond-to("md") {
+    position: relative;
+    > ul {
+      width: 125%;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+    "name": "@fresku/ai",
+    "main": "index.ts",
+    "exports": {
+        ".": "./index.ts",
+        "./*": "./*.ts"
+    },
+    "dependencies": {},
+    "peerDependencies": {
+        "@fresku/model": "*",
+        "@ai-sdk/openai": "*",
+        "ai": "*"
+    },
+    "devDependencies": {}
+}

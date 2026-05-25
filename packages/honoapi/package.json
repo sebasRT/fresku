@@ -1,0 +1,17 @@
+{
+    "name": "@fresku/honoapi",
+    "main": "index.ts",
+    "exports": {
+        ".": "./index.ts",
+        "./*": "./*.ts"
+    },
+    "dependencies": {},
+    "peerDependencies": {
+        "hono": "*",
+        "@fresku/ai": "*",
+        "@fresku/mongo": "*",
+        "@fresku/deepgram": "*",
+        "@fresku/resend": "*"
+    },
+    "devDependencies": {}
+}

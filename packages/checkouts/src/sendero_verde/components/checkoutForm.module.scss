@@ -1,0 +1,100 @@
+@use "sass:map";
+@use "@fresku/scss" as *;
+
+.form {
+  margin-inline: auto;
+  padding-inline: 1rem;
+  margin-block: 2rem;
+  max-width: 30rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  .buildingAndApto {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    .input > input {
+      width: 100%;
+    }
+  }
+  .error {
+    opacity: 0;
+    font-weight: 500;
+    align-self: center;
+    transition: opacity 0.2s ease-in;
+    color: map.get($red, 500);
+    &.errorActive {
+      opacity: 1;
+    }
+  }
+}
+
+.input {
+  @include flex-column;
+  @include opacity-fade-in(0.5s, ease-in, forwards);
+
+  > * {
+    margin-bottom: 0.25rem;
+    padding-inline: 0.5rem;
+  }
+
+  span {
+    align-self: center;
+    font-weight: 600;
+    color: map.get($neutral, 600);
+    font-size: 1.3rem;
+  }
+  input,
+  select {
+    box-sizing: border-box;
+    border-radius: 0.2rem;
+    color: map.get($neutral, 900);
+    outline: none;
+    padding-block: 0.2rem;
+    letter-spacing: 0.05rem;
+    font-size: 1.5rem;
+    background-color: map.get($neutral, 50);
+    border-color: map.get($blue, 300);
+    border-bottom-width: 0.25rem;
+    transition: all 0.15s ease-in;
+    background-color: white;
+    opacity: 0.8;
+
+    &:focus {
+      scale: 1.02;
+      opacity: 1;
+      @include box-shadow;
+    }
+  }
+  small {
+    color: map.get($red, 700);
+    font-size: 0.9rem;
+  }
+
+  &.invalid {
+    input,
+    select {
+      border-color: map.get($red, 500);
+    }
+  }
+  &.valid {
+    input,
+    select {
+      border-color: map.get($green, 300);
+    }
+  }
+}
+
+.nextButton {
+  @include press-behavior;
+  @include box-shadow;
+  background-color: white;
+  border: 1px solid map.get($neutral, 200);
+  font-weight: 550;
+  border-radius: 99px;
+  letter-spacing: 0.05rem;
+  padding: 0.5rem;
+  width: fit-content;
+  align-self: center;
+}

@@ -1,0 +1,37 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 1rem;
+  .image {
+    padding: 1rem;
+    align-self: center;
+    width: 100%;
+    max-width: 15rem;
+  }
+  .selects {
+    display: flex;
+    flex-direction: row;
+  }
+  .submitButton {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.copyInfo {
+  section {
+    display: flex;
+    gap: 1rem;
+    font-weight: 500;
+  }
+}
