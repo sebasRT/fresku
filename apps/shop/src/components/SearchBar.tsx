@@ -2,7 +2,7 @@
 import FruverModal from "@/components/products/fruver/Modal";
 import { barcodeQuerySearch as BarcodeQuerySearch } from "@/lib/mongo/products/barcode";
 import { fruverQuerySearch } from "@/lib/mongo/products/fruver";
-import styles from "@/styles/global/searchbar.module.scss";
+import styles from "./searchbar.module.scss";
 import { getFruverLabels } from "@/utils/functions/fruver";
 import { formatPrice } from "@/utils/functions/strings";
 import { BarcodeProduct } from "@fresku/model/products/barcode";

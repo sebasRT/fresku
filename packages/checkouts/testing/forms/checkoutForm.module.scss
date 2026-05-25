@@ -1,5 +1,4 @@
-@use "../../../scss/src/mixins" as *;
-@use "../../../scss/src/colors" as *;
+@use "@fresku/scss" as *;
 
 .form {
     @include size-full;

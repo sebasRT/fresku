@@ -9,6 +9,7 @@
         "#actions*": "./_actions*"
     },
     "peerDependencies": {
+        "@fresku/scss": "*",
         "@fresku/model": "*",
         "@fresku/stores": "*",
         "@fresku/utils": "*",

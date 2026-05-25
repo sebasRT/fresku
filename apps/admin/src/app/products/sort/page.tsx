@@ -1,8 +1,8 @@
 "use client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import List from "./c/List";
-import Pagination from "./c/Pagination";
-import { ProductsContextProvider } from "./c/useProducts";
+import List from "./_c/List";
+import Pagination from "./_c/Pagination";
+import { ProductsContextProvider } from "./_c/useProducts";
 
 const queryClient = new QueryClient();
 const page = () => {

@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import Shufflers from "./c/Shufflers";
+import Shufflers from "./_c/Shufflers";
 import Providers from "./providers";
 
 const CategoryLayout = async ({

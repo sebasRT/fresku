@@ -1,6 +1,6 @@
 import { FruverCategory, FruverSubcategory } from "@/utils/consts/fruver";
 import { ReactNode } from "react";
-import Shufflers from "../(components)/Shufflers";
+import Shufflers from "../_c/Shufflers";
 
 const CategoryLayout = async ({
   params,

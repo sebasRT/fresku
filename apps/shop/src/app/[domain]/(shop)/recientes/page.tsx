@@ -4,11 +4,11 @@ import {
 } from "@/lib/mongo/orders";
 import { getSessionId } from "@fresku/utils/users/id";
 import { Suspense } from "react";
-import NoSession from "./c/NoSession";
-import LoadingRecentOrders from "./c/orders/Loading";
-import RecentOrders from "./c/orders/RecentOrders";
-import LoadingRecentProducts from "./c/products/Loading";
-import RecentProducts from "./c/products/RecentProducts";
+import NoSession from "./_c/NoSession";
+import LoadingRecentOrders from "./_c/orders/Loading";
+import RecentOrders from "./_c/orders/RecentOrders";
+import LoadingRecentProducts from "./_c/products/Loading";
+import RecentProducts from "./_c/products/RecentProducts";
 
 export default async function Recientes({
   params,

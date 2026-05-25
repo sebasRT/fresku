@@ -1,5 +1,5 @@
 "use client";
-import styles from "@/styles/global/cart.module.scss";
+import styles from "./cart.module.scss";
 import { getFruverLabels } from "@/utils/functions/fruver";
 import { formatPrice } from "@/utils/functions/strings";
 import { BarcodeProduct } from "@fresku/model/products/barcode";

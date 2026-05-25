@@ -1,6 +1,6 @@
 import LoadingPage from "@/components/LoadingPage";
 import { Suspense } from "react";
-import CheckoutLoader from "./CheckoutLoader";
+import CheckoutLoader from "./_c/CheckoutLoader";
 
 export default async function Page({
   params,

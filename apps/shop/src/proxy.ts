@@ -14,7 +14,7 @@ export const config = {
   ],
 };
 
-export default async function middleware(req: NextRequest) {
+export default async function proxy(req: NextRequest) {
   const { path, hostname } = getValuesFromRequest(req)
 
   return NextResponse.rewrite(constructRewrittenUrl(hostname, path, req));

@@ -4,7 +4,8 @@
     "description": "SCSS shared abstractions for Fresku projects",
     "main": "index.scss",
     "files": [
-        "src"
+        "src",
+        "all.scss"
     ],
     "keywords": [
         "scss",
@@ -13,5 +14,9 @@
         "fresku"
     ],
     "author": "SebasRT",
-    "private": true
+    "private": true,
+    "scripts": {
+        "bundle": "node scripts/generate.js",
+        "bundle:watch": "node scripts/generate.js --watch"
+    }
 }

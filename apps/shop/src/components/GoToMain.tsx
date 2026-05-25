@@ -1,4 +1,4 @@
-import styles from "@/styles/navigation/goToMain.module.scss";
+import styles from "./goToMain.module.scss";
 import Link from "next/link";
 import { MdArrowBack } from "react-icons/md";
 

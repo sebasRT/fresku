@@ -7,7 +7,7 @@ import {
 import { firstToUppercase } from "@/utils/functions/strings";
 import Link from "next/link";
 import { MdArrowDropDown } from "react-icons/md";
-import styles from "./(styles)/shufflers.module.scss";
+import styles from "./shufflers.module.scss";
 
 const Shufflers = ({
   category

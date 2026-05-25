@@ -1,5 +1,5 @@
-import FruverSlider from "@/app/cmp/FruverProductsSlider";
-import ProductsSlider from "@/app/cmp/ProductsSlider";
+import FruverSlider from "@/app/_c/FruverProductsSlider";
+import ProductsSlider from "@/app/_c/ProductsSlider";
 import { getDomains, getSubdomains } from "@fresku/mongo/tenants/meta";
 
 export const dynamicParams = false;

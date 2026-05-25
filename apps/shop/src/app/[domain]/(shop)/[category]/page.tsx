@@ -4,8 +4,8 @@ import { barcodeQueryOptions } from "@/lib/useQuery/products/barcode";
 import { categories, Category } from "@/utils/consts/barcode";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { Suspense } from "react";
-import ProductsList from "./c/ProductsList";
-import ProductsProvider from "./c/useProducts";
+import ProductsList from "./_c/ProductsList";
+import ProductsProvider from "./_c/useProducts";
 
 const domi = ["testing", "la_argentina"];
 export async function generateStaticParams() {
