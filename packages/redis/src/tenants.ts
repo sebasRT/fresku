@@ -1,4 +1,5 @@
 import { TenantHours, TenantMeta } from "@fresku/model/tenants/metadata";
+import { getTenantDatabase } from "@fresku/mongo/tenants/meta";
 import { Redis } from '@upstash/redis';
 import { getRedisClient } from ".";
 
@@ -29,7 +30,11 @@ async function getTenantDB(domain: string, dev: boolean = true) {
     const database = await redis.hget(redisId(domain, dev), "database");
 
     if (!database) {
-        throw new Error(`Tenant database not found for domain: ${domain}`);
+        const dbFromMongo = await getTenantDatabase(domain);
+        if (!dbFromMongo) {
+            throw new Error(`Tenant database not found for domain: ${domain}`);
+        }
+        return dbFromMongo;
     }
     return database as string;
 }

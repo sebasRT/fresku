@@ -60,5 +60,11 @@ async function getTenantIdByDomain(domain: string): Promise<string | null> {
     return tenant ? tenant.tenantId : null;
 }
 
-export { createTenantMetadata, getDomains, getSubdomains, getTenantIdByDomain, getTenantName };
+async function getTenantDatabase(domain: string): Promise<string | null> {
+    await init();
+    const tenant = await tenants.findOne({ domain }, { projection: { database: 1 } });
+    return tenant ? tenant.database : null;
+}
+
+export { createTenantMetadata, getDomains, getSubdomains, getTenantDatabase, getTenantIdByDomain, getTenantName };
 
