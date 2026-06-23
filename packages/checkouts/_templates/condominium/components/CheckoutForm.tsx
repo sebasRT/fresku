@@ -6,9 +6,10 @@ import { useEffect, useRef, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { getDefaultValues } from "../../../_utils";
 import useProducts from "../hooks/useProducts";
-import useResume from "../hooks/useResume";
+import useResume, { useResumeStore } from "../hooks/useResume";
 import useStep from "../hooks/useStep";
 import { createOrder } from "../utils/actions";
+import { getDeliveryZones } from "../../../_actions/deliveryZones";
 import Address from "./Address";
 import styles from "./checkoutForm.module.scss";
 import { Checkout, checkoutSchema } from "./checkoutResolver";
@@ -20,6 +21,7 @@ const CheckoutForm = ({ domain }: { domain: string }) => {
   const router = useRouter();
   const products = useProducts();
   const resume = useResume();
+  const setZones = useResumeStore((s) => s.setZones);
   const [error, setError] = useState("");
   const { step, setStep } = useStep();
   const { subtotal, setUnit } = resume;
@@ -48,6 +50,10 @@ const CheckoutForm = ({ domain }: { domain: string }) => {
       setError(error.message);
     }
   };
+
+  useEffect(() => {
+    getDeliveryZones(domain).then(setZones);
+  }, [domain]);
 
   useEffect(() => {
     const defaultValues = getDefaultValues();

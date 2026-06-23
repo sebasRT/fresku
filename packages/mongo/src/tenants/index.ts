@@ -46,7 +46,8 @@ async function createTenant(tenant: Omit<TenantMeta, "tenantId">) {
         await session.withTransaction(async () => {
 
             // Set up the Redis cache entry for the tenant
-            const tenantId = await createRedisTenant({ ...tenant, database });
+            await createRedisTenant({ ...tenant, database });
+            const tenantId = crypto.randomUUID();
 
             // Insert the tenant record into the Tenants collection
             await createTenantMetadata({ ...tenant, tenantId }, session);

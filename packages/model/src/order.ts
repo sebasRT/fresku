@@ -3,7 +3,8 @@ import { z } from "zod";
 import { barcodeSchema } from "./products/barcode";
 import { fruverSchema } from "./products/fruver";
 
-const orderStatus = z.enum(["pending", "packed", "delivered", "canceled"]);
+const orderStatus = z.enum(["pending", "packed", "delivered", "canceled", "ready_for_pickup"]);
+const canceledBy = z.enum(["tenant", "customer"]);
 
 const orderBarcodeSchema = barcodeSchema.pick({
     barcode: true,
@@ -53,8 +54,24 @@ const orderSchema = z.object({
     total: z.number().min(1),
     deliveryFee: z.number(),
     status: orderStatus,
+    canceledBy: canceledBy.optional(),
     updatedAt: z.date().optional(),
     createdAt: z.date()
+}).superRefine((data, ctx) => {
+    if (data.status === "canceled" && !data.canceledBy) {
+        ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            path: ["canceledBy"],
+            message: "canceledBy is required when status is 'canceled'",
+        });
+    }
+    if (data.status !== "canceled" && data.canceledBy) {
+        ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            path: ["canceledBy"],
+            message: "canceledBy must only be set when status is 'canceled'",
+        });
+    }
 })
 
 export const rangeSchema = z.object({
@@ -66,6 +83,8 @@ export const rangeSchema = z.object({
 type Order = z.infer<typeof orderSchema>;
 type OrderBarcode = z.infer<typeof orderBarcodeSchema>;
 type OrderFruver = z.infer<typeof orderFruverSchema>;
+type OrderStatus = z.infer<typeof orderStatus>;
+type CanceledBy = z.infer<typeof canceledBy>;
 
-export { orderBarcodeSchema, orderFruverSchema, orderSchema, type Order, type OrderBarcode, type OrderFruver };
+export { canceledBy, orderBarcodeSchema, orderFruverSchema, orderSchema, orderStatus, type CanceledBy, type Order, type OrderBarcode, type OrderFruver, type OrderStatus };
 

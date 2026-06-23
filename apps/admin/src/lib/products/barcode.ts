@@ -5,7 +5,7 @@ import { upsertBarcodeProduct as addGlobalProduct } from "@fresku/mongo/products
 
 import { getBarcodeProductsCount as baseCount, getSortedBarcodeProducts as baseGetSorted, upsertBarcodeProduct as baseUpsert } from "@fresku/mongo/products/barcode";
 import { deleteFromNew, setToReview } from "@fresku/mongo/products/new/barcode";
-import { upsertBarcodeProduct as upserTenantBarcode } from "@fresku/mongo/tenants/products/barcode";
+import { pushBarcodeProduct } from "@fresku/mongo/tenants/products/barcode";
 
 export async function upsertBarcodeProduct(...args: Parameters<typeof baseUpsert>) {
     return await baseUpsert(...args);
@@ -33,7 +33,7 @@ export async function addNewToGlobalAndUpdateTenants(product: Omit<NewBarcode & 
 
     if (product.tenants) {
         for (const tenant of product.tenants) {
-            await upserTenantBarcode(tenant, product) // Update tenant's product collection with new data
+            await pushBarcodeProduct(tenant, product)
         }
         return { success: true }
     }

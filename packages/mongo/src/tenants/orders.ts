@@ -1,5 +1,5 @@
 "use server"
-import { Order, orderSchema, rangeSchema } from "@fresku/model/order";
+import { Order, rangeSchema } from "@fresku/model/order";
 import { getNowInUTC, parseToUTC } from "@fresku/utils/time/index";
 import { Collection, Db, MongoClient } from "mongodb";
 import z from "zod";
@@ -20,25 +20,6 @@ async function init(tenantId: string) {
         throw new Error('Failed to stablish connection to database>' + error.message,)
     }
 }
-
-async function createNewOrder(tenantId: string, order: Omit<Order, "createdAt" | "orderId">) {
-    const { orders } = await init(tenantId);
-
-    const now = getNowInUTC()
-    const createdAt = now.toJSDate()
-
-    const orderId = `ORD-${now.toISODate()}-${order.sessionId}-${now.toUnixInteger()}`
-    const filledOrder = { ...order, createdAt, orderId } as Order
-
-    try {
-        const parsedOrder = await orderSchema.parseAsync(filledOrder)
-        const result = await orders.insertOne(parsedOrder)
-        return result.acknowledged
-    } catch (error: any) {
-        throw new Error('Failed to create order>' + error.message,)
-    }
-}
-
 
 type Range = z.infer<typeof rangeSchema>
 async function getOrders(tenantId: string, range: Range) {
@@ -73,5 +54,5 @@ async function updateOrder(tenantId: string, order: Partial<Order>, userId: stri
 }
 
 
-export { createNewOrder, getOrders, updateOrder };
+export { getOrders, updateOrder };
 

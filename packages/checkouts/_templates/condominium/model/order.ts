@@ -15,7 +15,7 @@ const orderProductSchema = z.object({
 
 export type OrderProduct = z.infer<typeof orderProductSchema>
 
-export type OrderStatus = 'pending' | 'packed' | 'delivered';
+export type OrderStatus = 'pending' | 'packed' | 'delivered' | 'canceled' | 'ready_for_pickup';
 
 export const unit = z.enum(units)
 
@@ -32,7 +32,7 @@ export const orderSchema = z.object({
     createdAt: z.date().optional(),
     subtotal: z.number(),
     deliveryFee: z.number(),
-    status: z.enum(['pending', 'packed', 'delivered']),
+    status: z.enum(['pending', 'packed', 'delivered', 'canceled', 'ready_for_pickup']),
 })
 const deliveryAddressSchema = z.object({
     building: z.number(),

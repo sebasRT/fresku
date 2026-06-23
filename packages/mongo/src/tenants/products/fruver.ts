@@ -1,5 +1,6 @@
-import { FruverProduct } from "@fresku/model/products/fruver";
+import { BaseFruverProduct, FruverProduct, baseFruverSchema } from "@fresku/model/products/fruver";
 import { safeParseFruverProducts } from "@fresku/utils/products/fruver/parsing";
+import { getNowInUTC } from "@fresku/utils/time/index";
 import { Collection, Db, MongoClient } from "mongodb";
 import clientPromise from "../..";
 import { queryFruver } from "../../products/fruver";
@@ -55,5 +56,25 @@ async function tenantFruverQuerySearch(query: string, tenantId: string, limit: n
     return safeParseFruverProducts(orderedTenantResults)
 }
 
-export { addTenantFruverProduct, queryTenantFruverProducts, tenantFruverQuerySearch, updateTenantFruverProduct };
+async function pushFruverProduct(tenantId: string, product: BaseFruverProduct) {
+    const { fruverProducts } = await init(tenantId);
+    const parsed = baseFruverSchema.safeParse(product);
+
+    if (!parsed.success) {
+        throw new Error(`Invalid product data: ${parsed.error.message}`);
+    }
+
+    const lastUpdate = getNowInUTC();
+
+    return fruverProducts.updateOne(
+        { sku: product.sku },
+        {
+            $set: { ...parsed.data, lastUpdate },
+            $setOnInsert: { type: "fruver" as const, pricePerGram: 0, stockStatus: "in" as const, sellingFormat: "weight" as const, unit: "g" as const, unitQuantity: 0 },
+        },
+        { upsert: true }
+    );
+}
+
+export { addTenantFruverProduct, pushFruverProduct, queryTenantFruverProducts, tenantFruverQuerySearch, updateTenantFruverProduct };
 

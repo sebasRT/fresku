@@ -6,7 +6,7 @@ import styles from "./productSlider.module.scss";
 
 const ProductsSlider = async ({ domain }: { domain: string }) => {
   const products = await getFruverSamples(domain, 15);
-
+  
   if (products.length < 1) {
     return null;
   }

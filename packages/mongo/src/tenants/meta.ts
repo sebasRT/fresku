@@ -66,5 +66,17 @@ async function getTenantDatabase(domain: string): Promise<string | null> {
     return tenant ? tenant.database : null;
 }
 
-export { createTenantMetadata, getDomains, getSubdomains, getTenantDatabase, getTenantIdByDomain, getTenantName };
+async function getTenantCheckoutKey(domain: string): Promise<string | null> {
+    await init();
+    const tenant = await tenants.findOne({ domain }, { projection: { checkoutKey: 1 } });
+    return tenant ? tenant.checkoutKey : null;
+}
+
+async function getTenantDeliveryZones(domain: string): Promise<Record<string, number> | null> {
+    await init();
+    const tenant = await tenants.findOne({ domain }, { projection: { deliveryZones: 1 } });
+    return tenant?.deliveryZones ?? null;
+}
+
+export { createTenantMetadata, getDomains, getSubdomains, getTenantCheckoutKey, getTenantDatabase, getTenantDeliveryZones, getTenantIdByDomain, getTenantName };
 

@@ -93,6 +93,7 @@ const statusLabels = {
   packed: "Procesando",
   delivered: "Entregado",
   canceled: "Cancelado",
+  ready_for_pickup: "Listo para recoger",
 };
 
 export default page;

@@ -1,4 +1,4 @@
-import { BarcodeProduct, barcodeSchema } from "@fresku/model/products/barcode";
+import { BaseBarcodeProduct, BarcodeProduct, baseProductSchema, barcodeSchema } from "@fresku/model/products/barcode";
 import { safeParseBarcodeProducts } from "@fresku/utils/products/barcode/parsing";
 import { getNowInUTC } from "@fresku/utils/time/index";
 import { Collection, Db, MongoClient } from "mongodb";
@@ -101,5 +101,26 @@ async function tenantBarcodeQuerySearch(query: string, tenantId: string, limit: 
 }
 
 
-export { addBarcodeProduct, queryTenantBarcodeProducts, tenantBarcodeQuerySearch, tenantGetByBarcode, updateBarcodeProduct, upsertBarcodeProduct };
+async function pushBarcodeProduct(tenantId: string, product: BaseBarcodeProduct) {
+    const { barcodeProducts } = await init(tenantId);
+    const parsed = baseProductSchema.safeParse(product);
+
+    if (!parsed.success) {
+        throw new Error(`Invalid product data: ${parsed.error.message}`);
+    }
+
+    const { name, brand, measure } = parsed.data;
+    const lastUpdate = getNowInUTC();
+
+    return barcodeProducts.updateOne(
+        { barcode: product.barcode },
+        {
+            $set: { ...parsed.data, searchString: `${name} ${brand} ${measure}`, lastUpdate },
+            $setOnInsert: { price: 0, stockStatus: "in" as const },
+        },
+        { upsert: true }
+    );
+}
+
+export { addBarcodeProduct, pushBarcodeProduct, queryTenantBarcodeProducts, tenantBarcodeQuerySearch, tenantGetByBarcode, updateBarcodeProduct, upsertBarcodeProduct };
 

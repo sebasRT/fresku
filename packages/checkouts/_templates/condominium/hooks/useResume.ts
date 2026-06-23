@@ -2,7 +2,7 @@
 import { useBarcodeSubtotal } from "@fresku/stores/cart/barcode";
 import { useFruverSubtotal } from "@fresku/stores/cart/fruver";
 import { create } from "zustand";
-import { deliveryFees, Unit } from "../utils/consts";
+import { Unit } from "../utils/consts";
 
 export type Resume = {
     subtotal: number;
@@ -16,20 +16,21 @@ type ResumeHook = Resume & {
 };
 
 type ResumeStore = {
+    zones: Record<string, number>;
     deliveryFee: number;
     unit: Unit | null;
+    setZones: (zones: Record<string, number>) => void;
     setUnit: (unit: Unit) => void;
 };
 
-export const useResumeStore = create<ResumeStore>((set) => ({
+export const useResumeStore = create<ResumeStore>((set, get) => ({
+    zones: {},
     deliveryFee: 0,
     unit: null,
-    setUnit: (unit: Unit) => set(() => {
-        const deliveryFee = deliveryFees[unit];
-        return {
-            unit,
-            deliveryFee,
-        };
+    setZones: (zones) => set({ zones }),
+    setUnit: (unit: Unit) => set({
+        unit,
+        deliveryFee: get().zones[unit] ?? 0,
     }),
 }));
 

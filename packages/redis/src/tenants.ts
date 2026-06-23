@@ -1,5 +1,5 @@
 import { TenantHours, TenantMeta } from "@fresku/model/tenants/metadata";
-import { getTenantDatabase } from "@fresku/mongo/tenants/meta";
+import { getTenantCheckoutKey as getCheckoutKeyFromMongo, getTenantDatabase, getTenantDeliveryZones as getDeliveryZonesFromMongo } from "@fresku/mongo/tenants/meta";
 import { Redis } from '@upstash/redis';
 import { getRedisClient } from ".";
 
@@ -58,6 +58,40 @@ async function createRedisTenant(tenant: Omit<TenantMeta, "tenantId">) {
     return id;
 }
 
+async function getTenantCheckoutKey(domain: string, dev: boolean = true): Promise<string> {
+    await init();
+
+    if (NODE_ENV === "development" && dev) {
+        return "default";
+    }
+
+    const key = await redis.hget(redisId(domain, dev), "checkoutKey");
+
+    if (!key) {
+        const keyFromMongo = await getCheckoutKeyFromMongo(domain);
+        if (!keyFromMongo) {
+            return "default";
+        }
+        return keyFromMongo;
+    }
+    return key as string;
+}
+
+async function getTenantDeliveryZones(domain: string, dev: boolean = true): Promise<Record<string, number>> {
+    await init();
+
+    if (NODE_ENV === "development" && dev) {
+        return {};
+    }
+
+    const raw = await redis.hget(redisId(domain, dev), "deliveryZones");
+    if (!raw) {
+        const zonesFromMongo = await getDeliveryZonesFromMongo(domain);
+        return zonesFromMongo ?? {};
+    }
+    return typeof raw === "string" ? JSON.parse(raw) : (raw as Record<string, number>);
+}
+
 async function deleteTenantKey(domain: string) {
     await init();
     return redis.del(redisId(domain));
@@ -104,5 +138,5 @@ async function setTenantHours(tenantId: string, hours: Partial<TenantHours>) {
     return hours;
 }
 
-export { createRedisTenant, deleteTenantKey, getTenantDB, getTenantMetadata, setTenantHours, updateTenantMetadata };
+export { createRedisTenant, deleteTenantKey, getTenantCheckoutKey, getTenantDB, getTenantDeliveryZones, getTenantMetadata, setTenantHours, updateTenantMetadata };
 
