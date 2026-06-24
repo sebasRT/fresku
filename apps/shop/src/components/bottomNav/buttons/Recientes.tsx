@@ -1,7 +1,7 @@
 "use client";
 import FreskuIcon from "@/assets/FreskuIcon";
 import { cn } from "@/utils/functions/styles";
-import { Order } from "@fresku/model/order";
+import { Order, OrderStatus } from "@fresku/model/order";
 import { formatPrice } from "@fresku/utils/functions/strings";
 import { usePathname } from "next/navigation";
 import { RefObject, useRef, useState } from "react";
@@ -42,11 +42,12 @@ const OrderLi = ({ order }: { order: Order }) => {
 
   const { subtotal, createdAt, status, address: { label }, deliveryFee } = order
 
-  const statusLabel = {
+  const statusLabel: Record<OrderStatus, string> = {
     pending: "Procesando",
     packed: "En camino",
     delivered: "Entregado",
-    canceled: "Cancelado"
+    canceled: "Cancelado",
+    ready_for_pickup: "Listo para recoger"
   }
 
   const total = subtotal + deliveryFee

@@ -54,5 +54,6 @@ const orderStatus: Record<Order["status"], string> = {
   packed: "En camino",
   delivered: "Entregado",
   canceled: "Cancelado",
+  ready_for_pickup: "Listo para recoger"
 };
 export default RecentOrders;
