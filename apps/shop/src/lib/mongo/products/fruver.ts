@@ -1,5 +1,6 @@
 'use server'
 import clientPromise from "@/lib/mongo";
+import { FruverCategory } from "@/utils/consts/fruver";
 import { FruverProduct } from "@fresku/model/products/fruver";
 import { queryFruver } from "@fresku/mongo/products/fruver";
 import { getTenantDB } from "@fresku/redis/tenants";
@@ -102,5 +103,13 @@ async function getFruverProducts(domain: string, skus: string[] = []): Promise<F
     return await products.find({ sku: { $in: skus } }, { projection: { _id: 0 } }).toArray();
 }
 
-export { fruverQuerySearch, getFruverFeatured, getFruverProducts, getFruverSamples, tenantAiFruverSearch };
+async function getFruverByCategory(domain: string, category: FruverCategory): Promise<FruverProduct[]> {
+    const { products } = await init(domain)
+    const result = await products
+        .find({ category }, { projection: { _id: 0 } })
+        .toArray();
+    return safeParseFruverProducts(result);
+}
+
+export { fruverQuerySearch, getFruverByCategory, getFruverFeatured, getFruverProducts, getFruverSamples, tenantAiFruverSearch };
 
