@@ -57,21 +57,6 @@ const orderSchema = z.object({
     canceledBy: canceledBy.optional(),
     updatedAt: z.date().optional(),
     createdAt: z.date()
-}).superRefine((data, ctx) => {
-    if (data.status === "canceled" && !data.canceledBy) {
-        ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            path: ["canceledBy"],
-            message: "canceledBy is required when status is 'canceled'",
-        });
-    }
-    if (data.status !== "canceled" && data.canceledBy) {
-        ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            path: ["canceledBy"],
-            message: "canceledBy must only be set when status is 'canceled'",
-        });
-    }
 })
 
 export const rangeSchema = z.object({
