@@ -19,7 +19,7 @@ async function sendPushTodomers(domain: string, title: string, body: string) {
             }
             return true;
         })
-        .map((domer: { token: string }) => ({ to: domer.token, title, body }));
+        .map((domer) => ({ to: domer.token || "" , title, body }));
 
     const tickets: ExpoPushTicket[] = [];
     for (const chunk of expo.chunkPushNotifications(messages)) {
